@@ -23,38 +23,35 @@ $(".btn").click(function() {
   var userChosenColour = $(this).attr("id");
   //Add selected button id to array
   userClickedPattern.push(userChosenColour);
-
   playSound(userChosenColour);
   animatePress(userChosenColour);
-
   // Check users answer
   checkAnswer(userClickedPattern.length - 1);
 });
 
 
+
+
+
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
-    console.log("Success");
-
+    console.log("Correct");
     if (userClickedPattern.length === gamePattern.length) {
-
       setTimeout(function() {
-      nextSequence();
+        nextSequence();
       }, 1000);
-
     }
-
   } else {
     console.log("Wrong");
-
     playSound("wrong");
-
     $("body").addClass("game-over");
+    $("#level-title").text("Game Over, Press Any Key to Restart");
+
     setTimeout(function() {
-      $("body").removeClass("gamer-over")
+      $("body").removeClass("game-over")
     }, 200);
 
-    $("#level-title").text("Game Over, Press Any Key to Restart");
+    startOver();
   }
 
 }
@@ -65,14 +62,12 @@ function nextSequence() {
   // Update level
   level++;
   $("#level-title").text("Level " + level);
-
   // Random Number Generator
   var randomNumber = Math.floor(Math.random() * 4);
   console.log(randomNumber);
   //Add random Colour to array
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
-
   // Animation
   $("#" + randomChosenColour).fadeOut(100).fadeIn(100);
   // Audio
@@ -93,4 +88,10 @@ function animatePress(currentColour) {
     $("#" + currentColour).removeClass("pressed");
   }, 100);
 
+}
+
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
 }
