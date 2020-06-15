@@ -1,6 +1,17 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 
+var userClickedPattern = [];
+
+
+$(".btn").click(function() {
+  // Find selected id
+  var userChosenColour = $(this).attr("id");
+  //Add selected button id to array
+  userClickedPattern.push(userChosenColour);
+  console.log(userClickedPattern);
+});
+
 
 function nextSequence() {
   // Random Number Generator
